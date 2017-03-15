@@ -1,60 +1,53 @@
-var MetaStruct = artifacts.require("./MetaStruct.sol");
+var MetaArray = artifacts.require("./MetaArray.sol");
 
 contract('Mc1', function(accounts) {
 
     it("setup the data inside the user struct", function() {
         var meta;
 
-        // Get initial balances of first and second account.
-        var ac1 = accounts[0];
-        var ac2 = accounts[1];
-        var ac3 = accounts[2]
-
         var amount = 10;
         var xamount;
 
-        return MetaStruct.deployed().then(function(instance) {
+        return MetaArray.deployed().then(function(instance) {
             meta = instance;
-            return meta.setUser(ac1, "keith", amount, true);
+            return meta.setUser(0, "keith", amount, true);
         }).then(function() {
             xamount = amount + 5;
-            return meta.setUser(ac2, "peter", xamount, false);
+            return meta.setUser(1, "peter", xamount, false);
         }).then(function() {
             xamount = xamount + 5;
-            return meta.setUser(ac3, "stu", xamount, false);
+            return meta.setUser(2, "stu", xamount, false);
+//        });
+
         }).then(function() {
 
-            return meta.getUserHungry.call(ac1);
+            return meta.getUserHungry.call(0);
         }).then(function(hungry) {
             assert.equal(hungry, true, "Keith should be hungry");
             console.log("keith hungry = ", hungry);
-            return meta.getUserHungry.call(ac2);
+            return meta.getUserHungry.call(1);
         }).then(function(hungry) {
             assert.equal(hungry, false, "peter should not be hungry");
-            return meta.getUserHungry.call(ac3);
+            return meta.getUserHungry.call(2);
         }).then(function(hungry) {
             assert.equal(hungry, false, "stu should not be hungry");
         });
+
     });
 
     it("test hungry", function() {
         var meta;
 
-        // Get initial balances of first and second account.
-        var ac1 = accounts[0];
-        var ac2 = accounts[1];
-        var ac3 = accounts[2]
-
-        return MetaStruct.deployed().then(function(instance) {
+        return MetaArray.deployed().then(function(instance) {
             meta = instance;
-            return meta.getUserHungry.call(ac1);
+            return meta.getUserHungry.call(0);
         }).then(function(hungry) {
             assert.equal(hungry, true, "Keith should be hungry");
             console.log("keith hungry = ", hungry);
-            return meta.getUserHungry.call(ac2);
+            return meta.getUserHungry.call(1);
         }).then(function(hungry) {
             assert.equal(hungry, false, "peter should not be hungry");
-            return meta.getUserHungry.call(ac3);
+            return meta.getUserHungry.call(2);
         }).then(function(hungry) {
             assert.equal(hungry, false, "stu should not be hungry");
         });
@@ -63,21 +56,16 @@ contract('Mc1', function(accounts) {
     it("test names", function() {
         var meta;
 
-        // Get initial balances of first and second account.
-        var ac1 = accounts[0];
-        var ac2 = accounts[1];
-        var ac3 = accounts[2]
-
-        return MetaStruct.deployed().then(function(instance) {
+        return MetaArray.deployed().then(function(instance) {
             meta = instance;
-            return meta.getUserName.call(ac1);
+            return meta.getUserName.call(0);
         }).then(function(name) {
             assert.equal(name, "keith", "Keith should be the name");
             console.log("keith name = ", name);
-            return meta.getUserName.call(ac2);
+            return meta.getUserName.call(1);
         }).then(function(name) {
             assert.equal(name, "peter", "peter should be the name");
-            return meta.getUserName.call(ac3);
+            return meta.getUserName.call(2);
         }).then(function(name) {
             assert.equal(name, "stu", "stu should be the name");
         });
@@ -86,25 +74,20 @@ contract('Mc1', function(accounts) {
     it("test amounts", function() {
         var meta;
 
-        // Get initial balances of first and second account.
-        var ac1 = accounts[0];
-        var ac2 = accounts[1];
-        var ac3 = accounts[2]
-
         var myamt;
 
-        return MetaStruct.deployed().then(function(instance) {
+        return MetaArray.deployed().then(function(instance) {
             meta = instance;
-            return meta.getUserAmount.call(ac1);
+            return meta.getUserAmount.call(0);
         }).then(function(amt) {
             myamt = amt.toNumber();
             assert.equal(myamt, 10, "Keith amount should be 10");
             console.log("keith amount = ", amt);
-            return meta.getUserAmount.call(ac2);
+            return meta.getUserAmount.call(1);
         }).then(function(amt) {
             myamt = amt.toNumber();
             assert.equal(myamt, 15, "peter amount shoudl be 15");
-            return meta.getUserAmount.call(ac3);
+            return meta.getUserAmount.call(2);
         }).then(function(amt) {
             myamt = amt.toNumber();
             assert.equal(myamt, 20, "stu amount should be 20");

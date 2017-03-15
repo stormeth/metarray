@@ -1,5 +1,5 @@
-var MetaStruct = artifacts.require("./MetaStruct.sol");
+var MetaArray = artifacts.require("./MetaArray.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(MetaStruct);
+  deployer.deploy(MetaArray);
 };
