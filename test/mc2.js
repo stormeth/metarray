@@ -1,6 +1,6 @@
 var MetaArray = artifacts.require("./MetaArray.sol");
 
-contract('Mc1 Static', function(accounts) {
+contract('Mc2 Dynamic', function(accounts) {
 
     it("setup the data inside the user struct", function() {
         var meta;
@@ -10,25 +10,25 @@ contract('Mc1 Static', function(accounts) {
 
         return MetaArray.deployed().then(function(instance) {
             meta = instance;
-            return meta.setUser(0, "keith", amount, true);
+            return meta.setUserd("keith", amount, true);
         }).then(function() {
             xamount = amount + 5;
-            return meta.setUser(1, "peter", xamount, false);
+            return meta.setUserd("peter", xamount, false);
         }).then(function() {
             xamount = xamount + 5;
-            return meta.setUser(2, "stu", xamount, false);
+            return meta.setUserd("stu", xamount, false);
 //        });
 
         }).then(function() {
 
-            return meta.getUserHungry.call(0);
+            return meta.getUserdHungry.call(0);
         }).then(function(hungry) {
             assert.equal(hungry, true, "Keith should be hungry");
             console.log("keith hungry = ", hungry);
-            return meta.getUserHungry.call(1);
+            return meta.getUserdHungry.call(1);
         }).then(function(hungry) {
             assert.equal(hungry, false, "peter should not be hungry");
-            return meta.getUserHungry.call(2);
+            return meta.getUserdHungry.call(2);
         }).then(function(hungry) {
             assert.equal(hungry, false, "stu should not be hungry");
         });
@@ -40,14 +40,14 @@ contract('Mc1 Static', function(accounts) {
 
         return MetaArray.deployed().then(function(instance) {
             meta = instance;
-            return meta.getUserHungry.call(0);
+            return meta.getUserdHungry.call(0);
         }).then(function(hungry) {
             assert.equal(hungry, true, "Keith should be hungry");
             console.log("keith hungry = ", hungry);
-            return meta.getUserHungry.call(1);
+            return meta.getUserdHungry.call(1);
         }).then(function(hungry) {
             assert.equal(hungry, false, "peter should not be hungry");
-            return meta.getUserHungry.call(2);
+            return meta.getUserdHungry.call(2);
         }).then(function(hungry) {
             assert.equal(hungry, false, "stu should not be hungry");
         });
@@ -58,14 +58,14 @@ contract('Mc1 Static', function(accounts) {
 
         return MetaArray.deployed().then(function(instance) {
             meta = instance;
-            return meta.getUserName.call(0);
+            return meta.getUserdName.call(0);
         }).then(function(name) {
             assert.equal(name, "keith", "Keith should be the name");
             console.log("keith name = ", name);
-            return meta.getUserName.call(1);
+            return meta.getUserdName.call(1);
         }).then(function(name) {
             assert.equal(name, "peter", "peter should be the name");
-            return meta.getUserName.call(2);
+            return meta.getUserdName.call(2);
         }).then(function(name) {
             assert.equal(name, "stu", "stu should be the name");
         });
@@ -78,16 +78,16 @@ contract('Mc1 Static', function(accounts) {
 
         return MetaArray.deployed().then(function(instance) {
             meta = instance;
-            return meta.getUserAmount.call(0);
+            return meta.getUserdAmount.call(0);
         }).then(function(amt) {
             myamt = amt.toNumber();
             assert.equal(myamt, 10, "Keith amount should be 10");
             console.log("keith amount = ", amt);
-            return meta.getUserAmount.call(1);
+            return meta.getUserdAmount.call(1);
         }).then(function(amt) {
             myamt = amt.toNumber();
             assert.equal(myamt, 15, "peter amount shoudl be 15");
-            return meta.getUserAmount.call(2);
+            return meta.getUserdAmount.call(2);
         }).then(function(amt) {
             myamt = amt.toNumber();
             assert.equal(myamt, 20, "stu amount should be 20");
